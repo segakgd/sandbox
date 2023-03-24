@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Dto\UserDto;
 use App\Service\SecurityService;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,13 +25,18 @@ class SecurityController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(): JsonResponse
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/SecurityController.php',
-        ]);
+        return $this->json(
+            [
+                'message' => 'Welcome to your new controller!',
+                'path' => 'src/Controller/SecurityController.php',
+            ]
+        );
     }
 
-    #[Route('/registry', name: 'registry')]
+    /**
+     * @throws Exception
+     */
+    #[Route('/registry', name: 'registry', methods: "POST")]
     public function registry(Request $request): JsonResponse
     {
         $userDto = $this->serializer->deserialize($request->getContent(), UserDto::class, 'json');
@@ -44,8 +50,32 @@ class SecurityController extends AbstractController
         $user = $this->securityService->createUser($userDto);
 
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/SecurityController.php',
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
         ]);
+    }
+
+    #[Route('/auth', name: 'auth', methods: "POST")]
+    public function auth(Request $request): JsonResponse
+    {
+        $userDto = $this->serializer->deserialize($request->getContent(), UserDto::class, 'json');
+
+        $errors = $this->validator->validate($userDto);
+
+        if (count($errors) > 0) {
+            throw new BadRequestException($errors->get(0)->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+//        $user = $this->securityService->auth($userDto);
+
+        return $this->json([
+//            'id' => $user->getId(),
+//            'email' => $user->getEmail(),
+        ]);
+    }
+
+    #[Route('/auth/check', name: 'auth_check', methods: "GET")]
+    public function checkAuth(){
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
     }
 }
