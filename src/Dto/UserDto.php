@@ -7,6 +7,7 @@ class UserDto
 {
     #[Assert\Type('string')]
     #[Assert\NotNull]
+    #[Assert\Email]
     private string $email;
 
     #[Assert\Type('string')]
