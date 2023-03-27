@@ -6,7 +6,5 @@ framework:
         # See https://symfony.com/doc/current/routing.html#generating-urls-in-commands
         #default_uri: http://localhost
 
-when@prod:
-    framework:
-        router:
-            strict_requirements: null
+#api_login_check:
+#    path: /api/login_check

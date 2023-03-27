@@ -44,27 +44,27 @@ class SecurityService
         return $user;
     }
 
-//    public function auth(UserDto $userDto): User
-//    {
-//        $user = $this->userRepository->findOneBy(['email' => $userDto->getEmail()]);
-//
-////        $passwordCredentials = new PasswordCredentials($userDto->getPassword());
-////        $passport = new Passport(new UserBadge($userDto->getEmail()), $passwordCredentials);
-//
-//        if ($this->userPasswordHasher->isPasswordValid($user, $userDto->getPassword())){
-//
-////            $this->security->login($user);
-////            $this->authenticationUtils->getLastUsername()
-//            dd('valid');
-//        }
-//
-//        dd($user);
-//
-//        $this->entityManager->persist($user);
-//        $this->entityManager->flush($user);
-//
-//        return $user;
-//    }
+    public function auth(UserDto $userDto): User
+    {
+        $user = $this->userRepository->findOneBy(['email' => $userDto->getEmail()]);
+
+//        $passwordCredentials = new PasswordCredentials($userDto->getPassword());
+//        $passport = new Passport(new UserBadge($userDto->getEmail()), $passwordCredentials);
+
+        if ($this->userPasswordHasher->isPasswordValid($user, $userDto->getPassword())){
+
+//            $this->security->login($user);
+//            $this->authenticationUtils->getLastUsername()
+            dd('valid');
+        }
+
+        dd($user);
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush($user);
+
+        return $user;
+    }
 
 
     /**
