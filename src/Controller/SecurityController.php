@@ -22,17 +22,6 @@ class SecurityController extends AbstractController
         private readonly SecurityService $securityService,
     ){}
 
-    #[Route('/user', name: 'app_user')]
-    public function index(): JsonResponse
-    {
-        return $this->json(
-            [
-                'message' => 'Welcome to your new controller!',
-                'path' => 'src/Controller/SecurityController.php',
-            ]
-        );
-    }
-
     /**
      * @throws Exception
      */
@@ -53,29 +42,5 @@ class SecurityController extends AbstractController
             'id' => $user->getId(),
             'email' => $user->getEmail(),
         ]);
-    }
-
-    #[Route('/auth', name: 'auth', methods: "POST")]
-    public function auth(Request $request): JsonResponse
-    {
-        $userDto = $this->serializer->deserialize($request->getContent(), UserDto::class, 'json');
-
-        $errors = $this->validator->validate($userDto);
-
-        if (count($errors) > 0) {
-            throw new BadRequestException($errors->get(0)->getMessage(), Response::HTTP_BAD_REQUEST);
-        }
-
-//        $user = $this->securityService->auth($userDto);
-
-        return $this->json([
-//            'id' => $user->getId(),
-//            'email' => $user->getEmail(),
-        ]);
-    }
-
-    #[Route('/auth/check', name: 'auth_check', methods: "GET")]
-    public function checkAuth(){
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
     }
 }
