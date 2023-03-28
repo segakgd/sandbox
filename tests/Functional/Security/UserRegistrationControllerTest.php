@@ -24,4 +24,22 @@ class UserRegistrationControllerTest extends WebTestCase
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }
+
+    public function testInvalidation()
+    {
+        $client = static::createClient();
+
+        $client->request(
+            'POST',
+            '/api/user/registration/',
+            [],
+            [],
+            [],
+            '{"email":"test user com","password":"passwordTest"}'
+        );
+
+        $response = $client->getResponse();
+
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
+    }
 }
