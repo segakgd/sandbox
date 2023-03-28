@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class SecurityController extends AbstractController
+class UserRegistrationController extends AbstractController
 {
     public function __construct(
         private readonly SerializerInterface $serializer,
@@ -26,8 +26,8 @@ class SecurityController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/registry', name: 'registry', methods: "POST")]
-    public function registry(Request $request): JsonResponse
+    #[Route('/api/user/registration/', name: 'registration', methods: "POST")]
+    public function exist(Request $request): JsonResponse
     {
         $userDto = $this->serializer->deserialize($request->getContent(), UserDto::class, 'json');
         $errors = $this->validator->validate($userDto);
