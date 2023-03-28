@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Dto\UserDto;
 use App\Entity\User;
+use App\Exception\Security\UserExistException;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -45,7 +46,7 @@ class SecurityService
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
         if ($user){
-            throw new Exception('User exists with email: ' . $email);
+            throw new UserExistException('User exists with email: ' . $email);
         }
     }
 }
