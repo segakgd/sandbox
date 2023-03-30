@@ -16,7 +16,8 @@ class SecurityService
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly EntityManagerInterface $entityManager,
         private readonly UserRepository $userRepository,
-    ) {}
+    ) {
+    }
 
     /**
      * @throws Exception
@@ -45,7 +46,7 @@ class SecurityService
     {
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
-        if ($user){
+        if ($user) {
             throw new UserExistException('User exists with email: ' . $email);
         }
     }

@@ -21,7 +21,8 @@ class UserRegistrationController extends AbstractController
         private readonly SerializerInterface $serializer,
         private readonly ValidatorInterface $validator,
         private readonly SecurityService $securityService,
-    ){}
+    ) {
+    }
 
     /**
      * @throws Exception
