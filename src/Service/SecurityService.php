@@ -26,7 +26,9 @@ class SecurityService
     {
         $user = (new User());
 
-        $this->userExists($userDto->getEmail());
+        if ($this->userRepository->isUserExists($userDto->getEmail())) {
+            throw new UserExistException('User exists with email: ' . $userDto->getEmail());
+        }
 
         $password = $this->userPasswordHasher->hashPassword($user, $userDto->getPassword());
 
@@ -37,17 +39,5 @@ class SecurityService
         $this->entityManager->flush($user);
 
         return $user;
-    }
-
-    /**
-     * @throws Exception
-     */
-    private function userExists(string $email): void // todo rewrite to UserRepository
-    {
-        $user = $this->userRepository->findOneBy(['email' => $email]);
-
-        if ($user) {
-            throw new UserExistException('User exists with email: ' . $email);
-        }
     }
 }
