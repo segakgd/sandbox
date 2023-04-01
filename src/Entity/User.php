@@ -33,6 +33,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'User', cascade: ['persist', 'remove'])]
     private ?UserSetting $setting = null;
 
+    #[ORM\OneToOne(mappedBy: 'User', cascade: ['persist', 'remove'])]
+    private ?Project $project = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,6 +119,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->setting = $setting;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($project === null && $this->project !== null) {
+            $this->project->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($project !== null && $project->getUser() !== $this) {
+            $project->setUser($this);
+        }
+
+        $this->project = $project;
 
         return $this;
     }
