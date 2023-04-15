@@ -24,12 +24,11 @@ class SecurityService
      */
     public function createUser(UserDto $userDto): User
     {
-        $user = (new User());
-
         if ($this->userRepository->isUserExists($userDto->getEmail())) {
             throw new UserExistException('User exists with email: ' . $userDto->getEmail());
         }
 
+        $user = new User();
         $password = $this->userPasswordHasher->hashPassword($user, $userDto->getPassword());
 
         $user->setEmail($userDto->getEmail());
