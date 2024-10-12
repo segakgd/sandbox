@@ -8,14 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/api', name: 'api_')]
 class ApiController extends AbstractController
 {
-    public function __construct(private readonly FlexbeApiManager $flexbeApiManager)
-    {
-    }
 
-    #[Route('/test', name: 'test')]
+    #[Route('/', name: 'test')]
     public function test(): JsonResponse
     {
         $domain = 'domain.com'; // Replace with your Flexbe domain
@@ -23,7 +19,9 @@ class ApiController extends AbstractController
 
         $clientFlexbeDto = new FlexbeApiClientDto($domain, $apiKey);
 
-        $leads = $this->flexbeApiManager->getLeads($clientFlexbeDto);
+        $flexbeApiManager = new FlexbeApiManager();
+
+        $leads = $flexbeApiManager->getLeads($clientFlexbeDto);
 
         dd($leads);
 
