@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a03f7dfecb2c00215fbf896bfec5c1a9",
+    "content-hash": "c54fb21f096abda91cae42543a26c255",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2401,6 +2401,47 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.2"
             },
             "time": "2024-09-11T13:17:53+00:00"
+        },
+        {
+            "name": "segakgd/flexbe_api_client",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/segakgd/flexbe_api_client.git",
+                "reference": "c82294263aa7ee139534de9a85bafa4613731b0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/segakgd/flexbe_api_client/zipball/c82294263aa7ee139534de9a85bafa4613731b0e",
+                "reference": "c82294263aa7ee139534de9a85bafa4613731b0e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Segakgd\\FlexbeApiClient\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sega",
+                    "email": "hpsergeyy@yandex.ru"
+                }
+            ],
+            "description": "A PHP client for interacting with the Flexbe API.",
+            "support": {
+                "issues": "https://github.com/segakgd/flexbe_api_client/issues",
+                "source": "https://github.com/segakgd/flexbe_api_client/tree/v1.0.0"
+            },
+            "time": "2024-10-12T00:20:28+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
